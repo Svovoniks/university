@@ -1,28 +1,22 @@
-import requests
+def solve(a, b, c):
+    if a == 0:
+        if b == 0:
+            if c == 0:
+                print("Anything will do")
+            else:
+                print("no roots")
+        else:
+            print(-b/(2/a))
+    else:
+        d = b**2 - 4*a*c
+        if d < 0:
+            print("no roots")
+        elif d == 0:
+            print(-b/(2*a))
+        else:
+            print((-b-d**0.5)/(2*a), 
+                  (-b+d**0.5)/(2*a))
 
-s_city = "Moscow,RU"
-appid = "7080b85d03b618cd74a84a0fa43249d3"
 
-res = requests.get("http://api.openweathermap.org/data/2.5/weather",
-             params={'q': s_city, 'units': 'metric', 'lang': 'ru', 'APPID': appid})
-data = res.json()
-print(data)
-print("Город:", s_city)
-print("Погодные условия:", data['weather'][0]['description'])
-print("Температура:", data['main']['temp'])
-print("Минимальная температура:", data['main']['temp_min'])
-print("Максимальная температура", data['main']['temp_max'])
-print("Скорость ветра", data['wind']['speed'])
-print("Видимость", data['visibility'])
-
-res = requests.get("http://api.openweathermap.org/data/2.5/forecast",
-                   params={'q': s_city, 'units': 'metric', 'lang': 'ru', 'APPID': appid})
-data = res.json()
-print("Прогноз погоды на неделю:")
-for i in data['list']:
-    print("Дата <", i['dt_txt'],
-     "> \r\nТемпература <", '{0:+3.0f}'.format(i['main']['temp']),
-     "> \r\nПогодные условия <", i['weather'][0]['description'], ">",
-     "> \r\nСкорость ветра <", i['wind']['speed'], ">",
-     "> \r\nВидимость <", i['visibility'], ">")
-    print("____________________________")
+print("input: a b c")
+solve(*map(int, input().split()))
